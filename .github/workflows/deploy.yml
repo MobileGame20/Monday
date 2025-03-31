@@ -32,7 +32,7 @@ jobs:
             pkill -f "jupyter-notebook" || true
             nohup ~/.local/bin/jupyter-notebook \
               --ip=0.0.0.0 \
-              --port=8886 \
+              --port=8887 \
               --no-browser \
               --NotebookApp.token='' \
               --NotebookApp.password='' \
