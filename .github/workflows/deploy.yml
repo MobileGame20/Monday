@@ -37,5 +37,5 @@ jobs:
               --NotebookApp.token='' \
               --NotebookApp.password='' \
               --notebook-dir=~ > jupyter.log 2>&1 &
-            echo '[CI] Jupyter launched on port 8888'
+            echo '[CI] Jupyter launched on port 8886'
           EOF
