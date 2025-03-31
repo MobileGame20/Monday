@@ -23,26 +23,16 @@ jobs:
           echo 'Transferring notebook to droplet...'
           scp -o StrictHostKeyChecking=no example.ipynb ${{ secrets.DROPLET_USER }}@${{ secrets.IP }}:~/example.ipynb
 
-      - name: Launch Jupyter Notebook on port 8886
+      - name: Launch Jupyter Notebook
         run: |
           echo 'Connecting to droplet and launching Jupyter...'
           ssh -o StrictHostKeyChecking=no ${{ secrets.DROPLET_USER }}@${{ secrets.IP }} << 'EOF'
-            if ! command -v pip3 &> /dev/null; then
-              echo '[CI] pip3 not found, installing...'
-              sudo apt update && sudo apt install -y python3-pip
-            fi
-
-            echo '[CI] Installing Python packages...'
             pip3 install --user --upgrade pip
             pip3 install --user notebook pandas numpy matplotlib
-
-            echo '[CI] Killing any previous Jupyter processes...'
             pkill -f "jupyter-notebook" || true
-
-            echo '[CI] Launching Jupyter on port 8886...'
             nohup ~/.local/bin/jupyter-notebook \
               --ip=0.0.0.0 \
-              --port=8886 \
+              --port=8888 \
               --no-browser \
               --NotebookApp.token='' \
               --NotebookApp.password='' \
